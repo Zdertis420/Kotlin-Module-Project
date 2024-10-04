@@ -1,0 +1,105 @@
+class Archive(var name: String) {
+    private val notes: MutableMap<String, String> = mutableMapOf()
+
+    fun addNote(name: String, note: String): Boolean {
+        val oldSize = notes.size
+
+        notes[name] = note
+
+        if (notes.size > oldSize) {
+            println("New note created successfully")
+            return true
+        }
+        println("Note with name $name already exists")
+        return false
+    }
+
+    fun removeNote(name: String): Boolean {
+        if (notes.containsKey(name)) {
+            notes.remove(name)
+            return true
+        }
+
+        println("There's no note with name $name")
+        return false
+    }
+
+    fun renameNote(name: String): Boolean {
+        if (notes.containsKey(this.name)) {
+            notes[name] = notes[this.name].toString()
+            println("Note renamed successfully")
+            return true
+        }
+
+        println("There's no note with name $name")
+        return false
+    }
+
+    fun copyNote(name: String): Boolean {
+        if (notes.containsKey(name)) {
+            notes["$name copy"] = notes[name].toString()
+            println("Note copied successfully")
+            return true
+        }
+
+        println("There's no note with name $name")
+        return false
+    }
+
+    fun editNote(name: String, note: String): Boolean {
+        if (notes.containsKey(name)) {
+            notes[name] = note
+            println("Note edited successfully")
+            return true
+        }
+
+        println("There's no note with name $name")
+        return false
+    }
+
+    fun printAllNotes() {
+        for (key in notes.keys) {
+            println("$key: ${notes[key]}")
+        }
+    }
+
+    fun printNote(name: String) {
+        if (notes.containsKey(name)) {
+            println(notes[name])
+        } else {
+            println("There's no note with name $name")
+        }
+    }
+
+    override fun toString(): String {
+        val trace = Thread.currentThread().stackTrace
+
+        var result = "$name\n"
+
+        if (trace[4].toString() == "Archives.printArchive(Archives.kt:69)") {
+            if (notes.isNotEmpty()) {
+                result += "{\n"
+                for (note in notes) {
+                    result += "${note.key}: ${note.value}\n"
+                }
+                result += "}\n"
+            } else {
+                result += "Empty\n"
+            }
+
+            return result
+        }
+//        println(trace[4])
+
+        if (notes.isEmpty()) {
+            return name
+        }
+
+
+        for (note in notes) {
+            result += "${note.key}\n"
+        }
+
+        return result
+    }
+}
