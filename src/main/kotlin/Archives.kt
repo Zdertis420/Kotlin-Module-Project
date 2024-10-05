@@ -53,7 +53,7 @@ object Archives {
     fun copyArchive(name: String): Boolean {
         for (archive in archives) {
             if (name == archive.name) {
-                archives.add(Archive("$name copy"))
+                archives.add(Archive(name, archive.notes))
                 println("Archive $name copied successfully\n")
                 return true
             }
@@ -78,7 +78,7 @@ object Archives {
     }
 
     fun printArchive(name: String) {
-        println(Thread.currentThread().stackTrace[2])
+//        println(Thread.currentThread().stackTrace[2])
 
         for (archive in archives) {
             if (name == archive.name) {

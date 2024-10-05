@@ -39,7 +39,7 @@ fun main() {
                         println("Process canceled")
                         break
                     }
-                    success = archives.addArchive(scanner.nextLine())
+                    success = archives.addArchive(userAnswer)
                 }
             }
 
@@ -74,7 +74,7 @@ fun navigateThroughArchives() {
                         println("Process canceled")
                         break
                     }
-                    success = archives.addArchive(scanner.nextLine())
+                    success = archives.addArchive(userAnswer)
                 }
             }
 

@@ -1,6 +1,7 @@
-class Archive(var name: String) {
-    private val notes: MutableMap<String, String> = mutableMapOf()
-
+class Archive(
+    var name: String,
+    val notes: MutableMap<String, String> = mutableMapOf()
+) {
     fun addNote(name: String, note: String): Boolean {
         val oldSize = notes.size
 
@@ -79,7 +80,7 @@ class Archive(var name: String) {
 
         var result = "$name\n"
 
-        if (trace[4].toString() == "Archives.printArchive(Archives.kt:84)") {
+        if (trace[4].toString() == "Archives.printArchive(Archives.kt:85)") {
             if (notes.isNotEmpty()) {
                 result += "{\n"
                 for (note in notes) {
@@ -92,7 +93,7 @@ class Archive(var name: String) {
 
             return result
         }
-        println(trace[4])
+//        println(trace[4])
 
         if (notes.isEmpty()) {
             return name
