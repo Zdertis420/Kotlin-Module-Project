@@ -5,6 +5,16 @@ class Archive(
     fun addNote(name: String, note: String): Boolean {
         val oldSize = notes.size
 
+        if (name == "") {
+            println("Name should contain at least one letter or number")
+            return false
+        }
+
+        if (note == "") {
+            println("Note should contain at least one letter or number")
+            return false
+        }
+
         notes[name] = note
 
         if (notes.size > oldSize) {

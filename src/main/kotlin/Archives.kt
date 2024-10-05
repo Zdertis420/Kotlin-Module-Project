@@ -7,6 +7,11 @@ object Archives {
                 println("Archive with name $name already exists\n")
                 return false
             }
+
+            if (name == "") {
+                println("Name should contain at least one letter or number")
+                return false
+            }
         }
 
         archives.add(Archive(name))
