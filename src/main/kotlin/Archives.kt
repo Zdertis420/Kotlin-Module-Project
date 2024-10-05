@@ -29,7 +29,7 @@ object Archives {
 
     fun removeArchiveByIndex(index: Int): Boolean {
         try {
-            archives.removeAt(index-1)
+            archives.removeAt(index - 1)
             println("Archive $index removed successfully")
             return true
         } catch (e: IndexOutOfBoundsException) {
@@ -41,8 +41,12 @@ object Archives {
     fun renameArchive(name: String, newName: String): Boolean {
         for (archive in archives) {
             if (name == archive.name) {
-                archives[archives.indexOf(archive)].name = newName
-                return true
+                if (archives.all { it.name != newName }) {
+                    archives[archives.indexOf(archive)].name = newName
+                    return true
+                }
+                println("Archive with name $newName already exists")
+                return false
             }
         }
 
@@ -53,7 +57,7 @@ object Archives {
     fun copyArchive(name: String): Boolean {
         for (archive in archives) {
             if (name == archive.name) {
-                archives.add(Archive(name, archive.notes))
+                archives.add(Archive("$name copy", archive.notes))
                 println("Archive $name copied successfully\n")
                 return true
             }

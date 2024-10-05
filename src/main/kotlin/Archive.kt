@@ -80,11 +80,11 @@ class Archive(
 
         var result = "$name\n"
 
-        if (trace[4].toString() == "Archives.printArchive(Archives.kt:85)") {
+        if (trace[4].toString() == "Archives.printArchive(Archives.kt:89)") {
             if (notes.isNotEmpty()) {
                 result += "{\n"
                 for (note in notes) {
-                    result += "${note.key}: ${note.value}\n"
+                    result += "${note.key}: ${note.value},\n"
                 }
                 result += "}\n"
             } else {
@@ -101,7 +101,7 @@ class Archive(
 
 
         for (note in notes) {
-            result += "${note.key}\n"
+            result += "    ${note.key}\n"
         }
 
         return result

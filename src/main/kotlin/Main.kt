@@ -8,7 +8,7 @@ fun main() {
         println(
             "Select one option:\n" +
                     "1. Display all archives\n" +
-                    "2. Display one archive\n" +
+                    "2. Open archive\n" +
                     "3. Add new archive\n" +
                     "4. Esc"
         )
@@ -20,7 +20,7 @@ fun main() {
             "2" -> {
                 var success = false
                 while (!success) {
-                    println("Select archive to display")
+                    println("Select archive to open")
                     try {
                         navigateThroughNotes(archives[scanner.nextLine()])
                         success = true
@@ -58,7 +58,7 @@ fun navigateThroughArchives() {
                     "2. Remove archive\n" +
                     "3. Rename archive\n" +
                     "4. Copy archive\n" +
-                    "5. Display notes in archive\n" +
+                    "5. Open archive\n" +
                     "6. Esc"
         )
 
@@ -92,17 +92,18 @@ fun navigateThroughArchives() {
                                 "Y - yes/N - no"
                     )
                     val userAnswer = scanner.nextLine()
-                    if (userAnswer == "Y") {
-                        success = if (!archiveToRemove.matches(Regex("\\d+"))) {
+
+                    when (userAnswer.lowercase()) {
+                        "y" -> success = if (!archiveToRemove.matches(Regex("\\d+"))) {
                             archives.removeArchiveByName(archiveToRemove)
                         } else {
                             archives.removeArchiveByIndex(archiveToRemove.toInt())
                         }
-                    } else if (userAnswer == "N") {
-                        println("Process canceled")
-                        success = true
-                    } else {
-                        println("Unresolved reference $userAnswer")
+                        "n" -> {
+                            println("Process canceled")
+                            success = true
+                        }
+                        else -> println("Unresolved answer $userAnswer")
                     }
                 }
             }
@@ -131,7 +132,7 @@ fun navigateThroughArchives() {
                             success = true
                         }
 
-                        else -> println("Unresolved reference $userAnswer")
+                        else -> println("Unresolved answer $userAnswer")
 
                     }
                 }
@@ -153,9 +154,14 @@ fun navigateThroughArchives() {
             "5" -> {
                 var success = false
                 while (!success) {
-                    println("Select archive to display")
+                    println("Select archive to open or enter esc to cancel")
+                    val archiveToOpen = scanner.nextLine()
+                    if (archiveToOpen.lowercase() == "esc") {
+                        println("Process canceled")
+                        break
+                    }
                     try {
-                        navigateThroughNotes(archives[scanner.nextLine()])
+                        navigateThroughNotes(archives[archiveToOpen])
                         success = true
                     } catch (e: IndexOutOfBoundsException) {
                         println("Archive does not exist")
@@ -194,7 +200,7 @@ fun navigateThroughNotes(archive: Archive) {
                     val name = scanner.nextLine()
                     if (name.lowercase() == "esc") {
                         println("Process canceled")
-                        break
+                       break
                     }
                     val note = scanner.nextLine()
                     success = archive.addNote(name, note)
@@ -204,12 +210,16 @@ fun navigateThroughNotes(archive: Archive) {
             "2" -> {
                 var success = false
                 while (!success) {
-                    println("Select note to remove")
+                    println("Select note to remove or enter esc to cancel")
                     val noteToRemove = scanner.nextLine()
                     println(
                         "You sure you want to remove note $noteToRemove?\n" +
                                 "Y - yes/N - no"
                     )
+                    if (noteToRemove.lowercase() == "esc") {
+                        println("Process canceled")
+                        break
+                    }
                     when (val userAnswer = scanner.nextLine()) {
                         "Y" -> success = archive.removeNote(noteToRemove)
                         "N" -> {
@@ -225,8 +235,12 @@ fun navigateThroughNotes(archive: Archive) {
             "3" -> {
                 var success = false
                 while (!success) {
-                    println("Select note to rename")
+                    println("Select note to rename or enter esc to cancel")
                     val noteToRename = scanner.nextLine()
+                    if (noteToRename.lowercase() == "esc") {
+                        println("Process canceled")
+                        break
+                    }
                     println(
                         "You sure you want to rename note $noteToRename?\n" +
                                 "Y - yes/N - no"
