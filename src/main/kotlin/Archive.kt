@@ -17,6 +17,7 @@ class Archive(var name: String) {
     fun removeNote(name: String): Boolean {
         if (notes.containsKey(name)) {
             notes.remove(name)
+            println("Note $name removed successfully")
             return true
         }
 
@@ -63,12 +64,14 @@ class Archive(var name: String) {
         }
     }
 
-    fun printNote(name: String) {
+    fun printNote(name: String): Boolean {
         if (notes.containsKey(name)) {
-            println(notes[name])
-        } else {
-            println("There's no note with name $name")
+            println("$name: ${notes[name]}")
+            return true
         }
+
+        println("There's no note with name $name")
+        return false
     }
 
     override fun toString(): String {
@@ -76,7 +79,7 @@ class Archive(var name: String) {
 
         var result = "$name\n"
 
-        if (trace[4].toString() == "Archives.printArchive(Archives.kt:69)") {
+        if (trace[4].toString() == "Archives.printArchive(Archives.kt:84)") {
             if (notes.isNotEmpty()) {
                 result += "{\n"
                 for (note in notes) {
@@ -89,7 +92,7 @@ class Archive(var name: String) {
 
             return result
         }
-//        println(trace[4])
+        println(trace[4])
 
         if (notes.isEmpty()) {
             return name

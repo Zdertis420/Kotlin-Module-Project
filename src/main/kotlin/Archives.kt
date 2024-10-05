@@ -1,5 +1,3 @@
-import kotlin.jvm.Throws
-
 object Archives {
     private val archives: MutableList<Archive> = mutableListOf()
 
@@ -20,6 +18,7 @@ object Archives {
         for (archive in archives) {
             if (name == archive.name) {
                 archives.removeAt(archives.indexOf(archive))
+                println("Archive $name removed successfully")
                 return true
             }
         }
@@ -43,6 +42,19 @@ object Archives {
         for (archive in archives) {
             if (name == archive.name) {
                 archives[archives.indexOf(archive)].name = newName
+                return true
+            }
+        }
+
+        println("There's no archive with name $name\n")
+        return false
+    }
+
+    fun copyArchive(name: String): Boolean {
+        for (archive in archives) {
+            if (name == archive.name) {
+                archives.add(Archive("$name copy"))
+                println("Archive $name copied successfully\n")
                 return true
             }
         }
