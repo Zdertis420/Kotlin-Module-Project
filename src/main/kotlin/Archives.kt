@@ -51,6 +51,19 @@ object Archives {
         return false
     }
 
+    fun copyArchive(name: String): Boolean {
+        for (archive in archives) {
+            if (name == archive.name) {
+                archives.add(Archive("$name copy"))
+                println("Archive $name copied successfully\n")
+                return true
+            }
+        }
+
+        println("There's no archive with name $name\n")
+        return false
+    }
+
     fun printAllArchives() {
         if (archives.isEmpty()) {
             println("No archives created yet\n")
@@ -66,7 +79,7 @@ object Archives {
     }
 
     fun printArchive(name: String) {
-//        println(Thread.currentThread().stackTrace[2])
+        println(Thread.currentThread().stackTrace[2])
 
         for (archive in archives) {
             if (name == archive.name) {

@@ -29,10 +29,15 @@ fun main() {
                     }
                 }
             }
+
             "3" -> {
-                println("Enter new archive name")
-                archives.addArchive(scanner.nextLine())
+                var success = false
+                while (!success) {
+                    println("Enter new archive name")
+                    success = archives.addArchive(scanner.nextLine())
+                }
             }
+
             "4" -> break
         }
     }
@@ -47,8 +52,9 @@ fun navigateThroughArchives() {
                     "1. Add new archive\n" +
                     "2. Remove archive\n" +
                     "3. Rename archive\n" +
-                    "4. Display notes in archive\n" +
-                    "5. Esc"
+                    "4. Copy archive\n" +
+                    "5. Display notes in archive\n" +
+                    "6. Esc"
         )
 
         val userInput = scanner.nextLine()
@@ -56,7 +62,7 @@ fun navigateThroughArchives() {
         when (userInput) {
             "1" -> {
                 var success = false
-                while (!success){
+                while (!success) {
                     println("Enter name of new archive")
                     success = archives.addArchive(scanner.nextLine())
 
@@ -90,7 +96,10 @@ fun navigateThroughArchives() {
                 while (!success) {
                     println("Select archive to rename")
                     val archiveToRename = scanner.nextLine()
-                    println("You sure you want to rename archive $archiveToRename?")
+                    println(
+                        "You sure you want to rename archive $archiveToRename?\n" +
+                                "Y - yes/N - no"
+                    )
                     if (scanner.nextLine() == "Y") {
                         println("Enter new name for archive $archiveToRename")
                         success = archives.renameArchive(archiveToRename, scanner.nextLine())
@@ -99,6 +108,14 @@ fun navigateThroughArchives() {
             }
 
             "4" -> {
+                var success = false
+                while (!success) {
+                    println("Select archive to copy")
+                    success = archives.copyArchive(scanner.nextLine())
+                }
+            }
+
+            "5" -> {
                 var success = false
                 while (!success) {
                     println("Select archive to display")
@@ -111,43 +128,24 @@ fun navigateThroughArchives() {
                 }
             }
 
-            "5" -> break
+            "6" -> break
         }
     }
 }
 
 fun navigateThroughNotes(archive: Archive) {
     while (true) {
-        archives.printArchive(archive.toString())
-//        println(archives.toString())
+        archives.printArchive(archive.name)
 
-        println(
-            "Select one option:\n" +
-                    "1. Add note\n" +
-                    "2. Remove note\n" +
-                    "3. Rename note\n" +
-                    "4. Copy note\n" +
-                    "5. Edit note\n" +
-                    "6. Display all notes\n" +
-                    "7. Display one note\n" +
-                    "8. Esc"
-        )
-
-        val userInput = scanner.nextLine()
-
-        when (userInput) {
-            "1" -> {
-                var success = false
-                while (!success) {
-                    println("Enter name and note")
-                    success = archive.addNote(scanner.nextLine(), scanner.nextLine())
-                }
-            }
-            "2" -> {
-
-            }
-            "6" -> break
-        }
+        println("Select one option:\n" +
+                "1. Add note\n" +
+                "2. Remove note\n" +
+                "3. Rename note\n" +
+                "4. Copy note\n" +
+                "5. Edit note\n" +
+                "6. Display all notes\n" +
+                "7. Display one note\n" +
+                "8. Esc")
     }
 }
 
