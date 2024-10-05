@@ -78,7 +78,7 @@ object Archives {
     }
 
     fun printArchive(name: String) {
-//        println(Thread.currentThread().stackTrace[2])
+        println(Thread.currentThread().stackTrace[2])
 
         for (archive in archives) {
             if (name == archive.name) {
